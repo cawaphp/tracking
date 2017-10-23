@@ -1,0 +1,25 @@
+{
+    "name": "cawa-tracking",
+    "description": "",
+    "homepage": "https://github.com/cawaphp/tracking",
+    "authors": [
+        "tchiotludo"
+    ],
+    "main": [
+
+    ],
+    "moduleType": [
+        "amd"
+    ],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "src"
+    ],
+    "license": "GPL-3.0",
+    "dependencies": {
+    }
+}
