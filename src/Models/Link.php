@@ -195,7 +195,7 @@ class Link extends Model implements AnalyticKeyInterface
         }
 
         $campaign = array_reverse($campaign);
-        $return['campaignName']  = implode('/', $campaign);
+        $return['campaignName'] = implode('/', $campaign);
 
         return $return;
     }

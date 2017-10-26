@@ -80,6 +80,10 @@ module.exports = function () {
             return ;
         }
 
+        if (!window.fbq) {
+            return ;
+        }
+
         var advancedMatching = {};
 
         if (this.data['email']) {
@@ -140,6 +144,11 @@ module.exports = function () {
         if (window.fbq) {
             window.fbq('track', 'PageView');
         }
+
+        if (window.uetq) {
+            window.uetq.push("pageLoad");
+        }
+
     };
 
     /**
@@ -232,6 +241,19 @@ module.exports = function () {
             }];
 
             !this.facebookIsInit ? this.facebookQueue.push(args) : window.fbq.apply(window.fbq, args);
+        }
+
+        if (window.gtag) {
+            window.gtag('event', 'conversion', {
+                'send_to': this.data.adwordSendTo,
+                'value': order.revenue,
+                'currency': currency,
+                'transaction_id': order.id
+            });
+        }
+
+        if (window.uetq) {
+            window.uetq.push({'gv': order.revenue, 'gc': currency});
         }
     };
 };

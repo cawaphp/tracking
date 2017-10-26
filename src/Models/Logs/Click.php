@@ -111,7 +111,6 @@ class Click extends AbstractLog
         return self::encrypt($data);
     }
 
-
     //endregion
 
     //region Db Read

@@ -76,4 +76,3 @@ abstract class AbstractLog extends Model
         return $decrypted ?: null;
     }
 }
-
