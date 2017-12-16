@@ -161,7 +161,7 @@ class Link extends Model implements AnalyticKeyInterface
     {
         $return = $campaign = [];
 
-        $collection = $this->getCampaign()->getParentTree();
+        $collection = $this->getCampaign()->getParents();
         $collection->add($this);
         $collection = $collection->reverse();
 
