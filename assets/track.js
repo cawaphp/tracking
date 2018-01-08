@@ -136,7 +136,6 @@ module.exports = function () {
      * @param {string} url
      */
     this.pageView = function (url) {
-
         if (window.ga) {
             window.ga('send', 'pageview', url);
         }
@@ -148,7 +147,46 @@ module.exports = function () {
         if (window.uetq) {
             window.uetq.push("pageLoad");
         }
+    };
 
+    /**
+     * @param {string} category
+     * @param {string} action
+     * @param {string} label
+     * @param {number} value
+     */
+    this.event = function (category, action, label, value) {
+        if (window.ga) {
+            window.ga('send', 'event', category, action, label, value);
+        }
+
+        if (window.fbq) {
+            var fbData = {'action': action};
+            if (label) {
+                fbData.label = label;
+            }
+
+            if (value) {
+                fbData.value = value;
+            }
+
+            window.uetq.push(fbData);
+
+            window.fbq('trackCustom', category, fbData);
+        }
+
+        if (window.uetq) {
+            var bingData = {'ec': category, 'ea': action};
+            if (label) {
+                bingData.el = label;
+            }
+
+            if (value) {
+                bingData.ev = value;
+            }
+
+            window.uetq.push(bingData);
+        }
     };
 
     /**
@@ -188,6 +226,52 @@ module.exports = function () {
                     item_price: article.price
                 }
             });
+        }
+    };
+
+    /**
+     * @param {string} currency
+     * @param {*} article
+     */
+    this.articleAdd = function (currency, article) {
+        this.set('currencyCode', currency);
+
+        if (window.ga) {
+            window.ga('ec:addProduct', article);
+            window.ga('ec:setAction', 'add');
+        }
+    };
+
+    /**
+     * @param {string} currency
+     * @param {*} article
+     */
+    this.articleRemove = function (currency, article) {
+        this.set('currencyCode', currency);
+
+        if (window.ga) {
+            window.ga('ec:addProduct', article);
+            window.ga('ec:setAction', 'remove');
+        }
+    };
+
+    /**
+     *
+     * @param {string} currency
+     * @param {*} articles
+     * @param {*} options
+     */
+    this.purchaseFunnel = function(currency, articles, options) {
+        this.set('currencyCode', currency);
+
+        if (window.ga) {
+            for (var i in articles) {
+                if (articles.hasOwnProperty(i)) {
+                    window.ga('ec:addProduct', articles[i]);
+                }
+            }
+
+            window.ga('ec:setAction', 'checkout', options);
         }
     };
 
